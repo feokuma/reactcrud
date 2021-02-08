@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "React Crud",
+  "name": "Aplicação Crud React",
   "icons": [
     {
       "src": "favicon.ico",
