@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import Lists from "./Lists";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       loading: false,
-      alldata: []
+      alldata: [],
     };
     this.getLists = this.getLists.bind(this);
   }
@@ -13,11 +14,11 @@ class App extends React.Component {
   getLists() {
     this.setState({ loading: true }, () => {
       fetch("http://localhost:3002/posts")
-        .then(res => res.json())
-        .then(result =>
+        .then((res) => res.json())
+        .then((result) =>
           this.setState({
             loading: false,
-            alldata: result
+            alldata: result,
           })
         )
         .catch(console.log);
@@ -25,21 +26,27 @@ class App extends React.Component {
   }
 
   render() {
+    const listTable = this.state.loading ? (
+      <span>Loading...</span>
+    ) : (
+      <Lists alldata={this.state.alldata} />
+    );
     return (
       <div className="container">
         <span className="title-bar">
-          <button 
-            type="button" 
-            className="btn btn-primary" 
+          <button
+            type="button"
+            className="btn btn-primary"
             onClick={this.getLists}
           >
-            Buscar listas
+            Get Lists
           </button>
         </span>
+        <br />
+        {listTable}
       </div>
     );
   }
-
 }
 
 export default App;
