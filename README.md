@@ -5,6 +5,10 @@ Aplicação de exemplo para estudo de react seguindo o post [CRUD App with React
 - [NodeJs](https://nodejs.org/en/download/)
 - [Json-Server](https://github.com/typicode/json-server)
 
+## Bibliotecas
+- React 17.0.1
+- Bootstrap
+
 ## Executando o projeto
 Este projeto tem foco no estudo do react e estamos utilizando o Json-Server como backend para facilitar a criação de infraestrutura. Portanto para que a aplicação funcione é necessário que o Json-Server esteja em execução. 
 
