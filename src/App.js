@@ -1,5 +1,6 @@
 import React from "react";
 import Lists from "./Lists";
+import CreateList from "./CreateList";
 
 class App extends React.Component {
   constructor(props) {
@@ -7,8 +8,14 @@ class App extends React.Component {
     this.state = {
       loading: false,
       alldata: [],
+      singledata: {
+        title: "",
+        author: "",
+      },
     };
     this.getLists = this.getLists.bind(this);
+    this.createList = this.createList.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   getLists() {
@@ -23,6 +30,37 @@ class App extends React.Component {
         )
         .catch(console.log);
     });
+  }
+
+  handleChange(event) {
+    var title = this.state.singledata.title;
+    var author = this.state.singledata.author;
+    if (event.target.name === "title") title = event.target.value;
+    else author = event.target.value;
+
+    this.setState({
+      singledata: {
+        title: title,
+        author: author,
+      },
+    });
+  }
+
+  createList() {
+    fetch("http://localhost:3002/posts", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(this.state.singledata),
+    }).then(
+      this.setState({
+        singledata: {
+          title: "",
+          author: "",
+        },
+      })
+    );
   }
 
   render() {
@@ -41,6 +79,11 @@ class App extends React.Component {
           >
             Get Lists
           </button>
+          <CreateList
+            singledata={this.state.singledata}
+            createList={this.createList}
+            handleChange={this.handleChange}
+          />
         </span>
         <br />
         {listTable}
