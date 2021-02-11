@@ -1,3 +1,4 @@
+import DeleteList from './DeleteList'
 
 function Lists(props){
     var rows = [];
@@ -7,6 +8,8 @@ function Lists(props){
                <td>{element.id}</td>
                <td>{element.title}</td>
                <td>{element.author}</td>
+               <td></td>
+               <td><DeleteList/></td>
            </tr>
        ) 
     });
