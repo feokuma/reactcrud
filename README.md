@@ -1,6 +1,8 @@
 # Aplicação de exemplo de crud com react
 Aplicação de exemplo para estudo de react seguindo o post [CRUD App with React And JSON-Server](https://medium.com/weekly-webtips/use-react-with-json-server-and-create-simple-crud-app-b2bf58cd4558)
 
+O exemplo do projeto pode ser encontrado [aqui](https://codesandbox.io/s/react-using-json-server-3uupl)
+
 ## Pré-Requisitos / Ferramentas
 - [NodeJs](https://nodejs.org/en/download/)
 - [Json-Server](https://github.com/typicode/json-server)
