@@ -14,7 +14,9 @@ class App extends React.Component {
       },
     };
     this.getLists = this.getLists.bind(this);
+    this.getList = this.getList.bind(this);
     this.createList = this.createList.bind(this);
+    this.deleteList = this.deleteList.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -30,6 +32,28 @@ class App extends React.Component {
         )
         .catch(console.log);
     });
+  }
+
+  getList(event, id) {
+    this.setState(
+      {
+        singledata: {
+          title: "Loading...",
+          author: "Loading...",
+        },
+      },
+      () =>
+        fetch(`http://localhost:3002/posts/${id}`)
+          .then((res) => res.json())
+          .then((result) => {
+            this.setState({
+              singledata: {
+                title: result.title,
+                author: result.author ? result.author : "",
+              },
+            });
+          })
+    );
   }
 
   handleChange(event) {
@@ -50,24 +74,41 @@ class App extends React.Component {
     fetch("http://localhost:3002/posts", {
       method: "POST",
       headers: {
-        "Content-type": "application/json"
+        "Content-type": "application/json",
       },
       body: JSON.stringify(this.state.singledata),
-    }).then(
+    }).then(result => {
       this.setState({
         singledata: {
           title: "",
           author: "",
         },
-      })
-    );
+      });
+      this.getLists();
+    });
+  }
+
+  deleteList(event, id){
+    fetch(`http://localhost:3002/posts/${id}`, {
+      method: "DELETE"
+    })
+    .then(res => res.json())
+    .then(result => {
+      this.setState({
+        singledata:{
+          title: "", 
+          author: ""
+        }
+      });
+      this.getLists();
+    });
   }
 
   render() {
     const listTable = this.state.loading ? (
       <span>Loading...</span>
     ) : (
-      <Lists alldata={this.state.alldata} />
+      <Lists alldata={this.state.alldata} getList={this.getList} deleteList={this.deleteList}/>
     );
     return (
       <div className="container">
