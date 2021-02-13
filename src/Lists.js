@@ -1,4 +1,5 @@
 import DeleteList from "./DeleteList";
+import UpdateList from "./UpdateList";
 
 function Lists(props) {
   var rows = [];
@@ -8,7 +9,15 @@ function Lists(props) {
         <td>{element.id}</td>
         <td>{element.title}</td>
         <td>{element.author}</td>
-        <td></td>
+        <td>
+          <UpdateList
+            elementId={element.id}
+            getList={props.getList}
+            singledata={props.singledata}
+            updateList={props.updateList}
+            handleChange={props.handleChange}
+          />
+        </td>
         <td>
           <DeleteList
             elementId={element.id}

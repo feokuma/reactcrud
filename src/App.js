@@ -17,6 +17,7 @@ class App extends React.Component {
     this.getList = this.getList.bind(this);
     this.createList = this.createList.bind(this);
     this.deleteList = this.deleteList.bind(this);
+    this.updateList = this.updateList.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -77,7 +78,7 @@ class App extends React.Component {
         "Content-type": "application/json",
       },
       body: JSON.stringify(this.state.singledata),
-    }).then(result => {
+    }).then((result) => {
       this.setState({
         singledata: {
           title: "",
@@ -88,17 +89,35 @@ class App extends React.Component {
     });
   }
 
-  deleteList(event, id){
+  deleteList(event, id) {
     fetch(`http://localhost:3002/posts/${id}`, {
-      method: "DELETE"
+      method: "DELETE",
     })
-    .then(res => res.json())
-    .then(result => {
+      .then((res) => res.json())
+      .then((result) => {
+        this.setState({
+          singledata: {
+            title: "",
+            author: "",
+          },
+        });
+        this.getLists();
+      });
+  }
+
+  updateList(event, id) {
+    fetch(`http://localhost:3002/posts/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(this.state.singledata),
+    }).then(() => {
       this.setState({
-        singledata:{
-          title: "", 
-          author: ""
-        }
+        singledata: {
+          title: "",
+          author: "",
+        },
       });
       this.getLists();
     });
@@ -108,7 +127,14 @@ class App extends React.Component {
     const listTable = this.state.loading ? (
       <span>Loading...</span>
     ) : (
-      <Lists alldata={this.state.alldata} getList={this.getList} deleteList={this.deleteList}/>
+      <Lists
+        alldata={this.state.alldata}
+        singledata={this.state.singledata}
+        handleChange={this.handleChange}
+        getList={this.getList}
+        deleteList={this.deleteList}
+        updateList={this.updateList}
+      />
     );
     return (
       <div className="container">
