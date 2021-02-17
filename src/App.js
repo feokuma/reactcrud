@@ -1,6 +1,7 @@
 import React from "react";
 import Lists from "./Lists";
 import CreateList from "./CreateList";
+import InputFloatingLabel from "./components/InputFloatingLabel";
 
 class App extends React.Component {
   constructor(props) {
@@ -154,6 +155,13 @@ class App extends React.Component {
         </span>
         <br />
         {listTable}
+        <br />
+        <InputFloatingLabel
+          placeholder="Title"
+          fieldname="title"
+          fieldvalue={this.state.singledata.title}
+          handleChange={this.handleChange}
+        />
       </div>
     );
   }
