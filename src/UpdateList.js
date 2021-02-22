@@ -1,4 +1,5 @@
 import React from "react";
+import InputFloatingLabel from "./components/InputFloatingLabel";
 
 function UpdateList(props) {
   var modalIdentifier = `update${props.elementId}`;
@@ -24,7 +25,7 @@ function UpdateList(props) {
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">Update List</h5>
+              <span className="modal-title">Update List</span>
               <button
                 type="button"
                 className="close"
@@ -35,20 +36,18 @@ function UpdateList(props) {
               </button>
             </div>
             <div className="modal-body">
-              <input
-                type="text"
-                placeholder="title"
-                name="title"
-                value={props.singledata.title}
-                onChange={props.handleChange}
+              <InputFloatingLabel
+                placeholder="Title"
+                fieldname="title"
+                fieldvalue={props.singledata.title}
+                handleChange={props.handleChange}
               />
               <br />
-              <input
-                type="text"
-                placeholder="author"
-                name="author"
-                value={props.singledata.author}
-                onChange={props.handleChange}
+              <InputFloatingLabel
+                placeholder="Author"
+                fieldname="author"
+                fieldvalue={props.singledata.author}
+                handleChange={props.handleChange}
               />
             </div>
             <div className="modal-footer">
@@ -56,6 +55,7 @@ function UpdateList(props) {
                 type="button"
                 className="btn btn-secundary"
                 data-dismiss="modal"
+                onClick={props.cleanList}
               >
                 Close
               </button>
@@ -63,7 +63,9 @@ function UpdateList(props) {
                 type="button"
                 className="btn btn-info"
                 data-dismiss="modal"
-                onClick={(e) => {props.updateList(e, props.elementId)}}
+                onClick={(e) => {
+                  props.updateList(e, props.elementId);
+                }}
               >
                 Update
               </button>

@@ -15,6 +15,7 @@ function Lists(props) {
             getList={props.getList}
             singledata={props.singledata}
             updateList={props.updateList}
+            cleanList={props.cleanList}
             handleChange={props.handleChange}
           />
         </td>

@@ -1,4 +1,5 @@
 import React from "react";
+import InputFloatingLabel from "./components/InputFloatingLabel";
 
 function CreateList(props) {
   return (
@@ -29,20 +30,18 @@ function CreateList(props) {
               </button>
             </div>
             <div className="modal-body">
-              <input
-                type="text"
-                placeholder="title"
-                name="title"
-                value={props.singledata.title}
-                onChange={props.handleChange}
+              <InputFloatingLabel
+                placeholder="Title"
+                fieldname="title"
+                fieldvalue={props.singledata.title}
+                handleChange={props.handleChange}
               />
               <br />
-              <input
-                type="text"
-                placeholder="author"
-                name="author"
-                value={props.singledata.author}
-                onChange={props.handleChange}
+              <InputFloatingLabel
+                placeholder="Author"
+                fieldname="author"
+                fieldvalue={props.singledata.author}
+                handleChange={props.handleChange}
               />
             </div>
             <div className="modal-footer">
@@ -50,6 +49,7 @@ function CreateList(props) {
                 type="button"
                 className="btn btn-secondary"
                 data-dismiss="modal"
+                onClick={props.cleanList}
               >
                 Close
               </button>

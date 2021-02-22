@@ -1,11 +1,13 @@
 import React from "react";
+import { generateId } from "../../utils.js";
 import "./InputFloatingLabel.css";
 
 class InputFloatingLabel extends React.Component {
-  constructor({placeholder, props}) {
+  constructor({ placeholder, props }) {
     super(props);
     this.placeholder = placeholder;
     this.handleChange = this.handleChange.bind(this);
+    this.inputId = "field-input-" + generateId();
   }
 
   state = {
@@ -14,7 +16,13 @@ class InputFloatingLabel extends React.Component {
   };
 
   handleChange(e) {
-    if (e.target.value === "") {
+    this.showLabel(e.target.value);
+
+    if (this.props.handleChange != null) this.props.handleChange(e);
+  }
+
+  showLabel(value){
+    if (value === "") {
       this.setState({
         inputClassnames: "field-input",
         labelClassnames: "field-label",
@@ -25,9 +33,6 @@ class InputFloatingLabel extends React.Component {
         labelClassnames: "field-label field--not-empty",
       });
     }
-
-    if(this.props.handleChange != null)
-        this.props.handleChange(e);
   }
 
   render() {
@@ -40,7 +45,7 @@ class InputFloatingLabel extends React.Component {
         </label>
         <input
           className={inputClassnames}
-          id="field-input"
+          id={this.inputId}
           name={this.props.fieldname}
           value={this.props.fieldvalue}
           placeholder={this.placeholder}

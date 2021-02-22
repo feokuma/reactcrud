@@ -19,6 +19,7 @@ class App extends React.Component {
     this.createList = this.createList.bind(this);
     this.deleteList = this.deleteList.bind(this);
     this.updateList = this.updateList.bind(this);
+    this.cleanList = this.cleanList.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -79,7 +80,7 @@ class App extends React.Component {
         "Content-type": "application/json",
       },
       body: JSON.stringify(this.state.singledata),
-    }).then((result) => {
+    }).then(() => {
       this.setState({
         singledata: {
           title: "",
@@ -95,7 +96,7 @@ class App extends React.Component {
       method: "DELETE",
     })
       .then((res) => res.json())
-      .then((result) => {
+      .then(() => {
         this.setState({
           singledata: {
             title: "",
@@ -124,6 +125,17 @@ class App extends React.Component {
     });
   }
 
+  cleanList(event) {
+    setTimeout(() => {
+      this.setState({
+        singledata: {
+          title: "",
+          author: "",
+        },
+      });
+    }, 200);
+  }
+
   render() {
     const listTable = this.state.loading ? (
       <span>Loading...</span>
@@ -135,6 +147,7 @@ class App extends React.Component {
         getList={this.getList}
         deleteList={this.deleteList}
         updateList={this.updateList}
+        cleanList={this.cleanList}
       />
     );
     return (
@@ -149,19 +162,13 @@ class App extends React.Component {
           </button>
           <CreateList
             singledata={this.state.singledata}
+            cleanList={this.cleanList}
             createList={this.createList}
             handleChange={this.handleChange}
           />
         </span>
         <br />
         {listTable}
-        <br />
-        <InputFloatingLabel
-          placeholder="Title"
-          fieldname="title"
-          fieldvalue={this.state.singledata.title}
-          handleChange={this.handleChange}
-        />
       </div>
     );
   }
